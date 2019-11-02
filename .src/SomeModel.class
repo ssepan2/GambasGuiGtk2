@@ -1,0 +1,169 @@
+' Gambas class file
+
+Class SomeModel Inherits ModelBase
+
+Private $bForceNotify As Boolean = False
+
+'
+'ctor()
+'
+Public Sub _new(frmView As Form, sModelInstance As String)
+
+    Object.Attach(Me, frmView, sModelInstance)
+
+End
+
+'
+'Properties
+'
+Property SomeString As String
+Private $sSomeString As String
+
+Private Function SomeString_Read() As String
+
+    Return $sSomeString
+
+End
+
+Private Sub SomeString_Write(Value As String)
+
+    If ($sSomeString <> Value) Or $bForceNotify Then
+        $sSomeString = Value
+        Me.Dirty = True
+        Me.NotifyPropertyChanged("SomeString")
+    Endif
+
+End
+
+Property SomeBoolean As Boolean
+Private $bSomeBoolean As Boolean
+
+Private Function SomeBoolean_Read() As Boolean
+
+    Return $bSomeBoolean
+
+End
+
+Private Sub SomeBoolean_Write(Value As Boolean)
+
+    If ($bSomeBoolean <> Value) Or $bForceNotify Then
+        $bSomeBoolean = Value
+        Me.Dirty = True
+        Me.NotifyPropertyChanged("SomeBoolean")
+    Endif
+
+End
+
+Property SomeInteger As Integer
+Private $iSomeInteger As Integer
+
+Private Function SomeInteger_Read() As Integer
+
+    Return $iSomeInteger
+
+End
+
+Private Sub SomeInteger_Write(Value As Integer)
+
+    If ($iSomeInteger <> Value) Or $bForceNotify Then
+        $iSomeInteger = Value
+        Me.Dirty = True
+        Me.NotifyPropertyChanged("SomeInteger")
+    Endif
+
+End
+
+'
+'Methods
+'
+Public Sub SaveToSettings()
+
+    If IsNull(Me.key) Then
+        Error.Raise("OpenFromSettings: model.Key is null")
+    Endif
+
+    Settings[Me.Key & "/SomeString"] = Me.SomeString
+    Settings[Me.Key & "/SomeBoolean"] = Me.SomeBoolean
+    Settings[Me.Key & "/SomeInteger"] = Me.SomeInteger
+    Settings.Save
+
+    Me.Dirty = False
+Catch
+    Debug Log.FormatError
+    Debug Error.Text
+    Debug "Key: " & Me.Key
+
+End
+
+Public Function OpenFromSettings() As Boolean 'As SomeModel 'model As SomeModel
+
+    Dim returnValue As Boolean = False 'As SomeModel
+    Dim readValue As Variant
+
+    ' If IsNull(model) Then
+    '     Error.Raise("OpenFromSettings: model is null")
+    ' Endif
+
+    If IsNull(Me.key) Then
+        Error.Raise("OpenFromSettings: model.Key is null")
+    Endif
+
+    'TODO:need to clear values after failure, in case an error during opening leaves data in inconsistent state; see if caller can check/handle this
+
+    'setting these will set Dirty property...
+    readValue = Settings[Me.Key & "/SomeString"]
+    If IsNull(readValue) Then
+        Error.Raise("Error opening key='" & Me.Key & "', SomeString=Null")
+    Else
+        Me.SomeString = readValue
+    Endif
+
+    readValue = Settings[Me.Key & "/SomeBoolean"]
+    If IsNull(readValue) Then
+        Error.Raise("Error opening key='" & Me.Key & "', SomeBoolean=Null")
+    Else
+        Me.SomeBoolean = readValue
+    Endif
+
+    readValue = Settings[Me.Key & "/SomeInteger"]
+    If IsNull(readValue) Then
+        Error.Raise("Error opening key='" & Me.Key & "', SomeInteger=Null")
+    Else
+        Me.SomeInteger = readValue 'IIf(IsNull(Settings[Me.Key & "/SomeInteger"]), 0, Settings[Me.Key & "/SomeInteger"])
+    Endif
+
+    '...so clear dirty flag after retrieving saved values
+    Me.Dirty = False
+
+    returnValue = True
+    Return returnValue
+Finally
+Catch
+    Debug Log.FormatError
+    Debug Error.Text
+    Debug "Key: " & Me.Key
+    Return returnValue
+
+End
+
+Public Sub RefreshModel(Optional bPreserveDirty As Boolean = False)
+
+    Dim $bSaveDirty As Boolean
+
+    $bForceNotify = True
+
+    $bSaveDirty = Me.dirty
+    'setting these will set Dirty property...
+    Me.SomeString = Me.SomeString
+    Me.SomeBoolean = Me.SomeBoolean
+    Me.SomeInteger = Me.SomeInteger
+
+    '...so clear dirty flag after retrieving saved values
+    Me.Dirty = IIf(bPreserveDirty, $bSaveDirty, False)
+Finally
+    $bForceNotify = False
+Catch
+    Debug Log.FormatError
+    Debug Error.Text
+
+End
