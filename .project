@@ -1,11 +1,12 @@
 # Gambas Project File 3.0
 Title=Gambas Gui Gtk2
 Startup=FMain
-Version=0.0.1
+Version=0.0.2
 Component=gb.image
 Component=gb.gtk
 Component=gb.form
 Component=gb.settings
+Library=:stephensepan/DockAnchor:0.0
 TabSize=4
 Translate=1
 Language=en_US
