@@ -65,6 +65,10 @@
     Shortcut = "Ctrl+P"
     Picture = "icon:/22/print"
   }
+  { Action FileSave
+    Text = "Save"
+    Picture = "icon:/22/save"
+  }
   { Action FileSaveAs
     Text = "Save As"
     Shortcut = ""

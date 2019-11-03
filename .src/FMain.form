@@ -5,6 +5,7 @@
   Expand = True
   Icon = Picture["icon:/32/gnu"]
   AutoResize = True
+  Margin = True
   Padding = 8
   { MenuFile Menu
     Text = Shortcut(("File"), "F")
@@ -116,7 +117,7 @@
       Text = Shortcut(("About"), "A")
     }
   }
-  { ToolBar1 Panel
+  { ToolBarActions Panel
     MoveScaled(1,0,62,4)
     Expand = True
     { ToolButtonFileNew ToolButton
@@ -208,9 +209,48 @@
       Picture = Picture["icon:/22/properties"]
     }
   }
-  
-  { Panel1 Panel
-    MoveScaled(1,76,112,5)
+  { Panel2 Panel
+    MoveScaled(1,5,61,14)
+    { SomeStringLabel Label
+      MoveScaled(0,0,13,4)
+      Text = ("Some String:")
+      Alignment = Align.Right
+    }
+    { SomeStringTextBox TextBox
+      MoveScaled(14,0,24,4)
+    }
+    { SomeIntegerLabel Label
+      MoveScaled(0,5,13,4)
+      Text = ("Some Integer:")
+      Alignment = Align.Right
+    }
+    { SomeIntegerValueBox ValueBox
+      MoveScaled(14,5,24,4)
+      Alignment = Align.Right
+    }
+    { SomeBooleanLabel Label
+      MoveScaled(0,10,13,4)
+      Text = ("Some Boolean:")
+      Alignment = Align.Right
+    }
+    { SomeBooleanCheckBox CheckBox
+      MoveScaled(14,10,4,4)
+    }
+  }
+  { HBoxFormButtons HBox
+    MoveScaled(1,71,112,4)
+    Expand = True
+    AutoResize = True
+    { Spring1 Spring
+      MoveScaled(10,1,4,3)
+    }
+    { ButtonClose Button
+      MoveScaled(44,0,16,4)
+      Text = ("Close")
+    }
+  }
+  { PanelStatusBar Panel
+    MoveScaled(1.1429,76,112,5)
     Expand = True
     AutoResize = True
     Border = Border.Sunken
@@ -242,47 +282,10 @@
       Picture = Picture["icon:/22/save"]
     }
   }
-  { Panel2 Panel
-    MoveScaled(1,5,61,14)
-    { SomeStringLabel Label
-      MoveScaled(0,0,13,4)
-      Text = ("Some String:")
-      Alignment = Align.Right
-    }
-    { SomeStringTextBox TextBox
-      MoveScaled(14,0,24,4)
-    }
-    { SomeIntegerLabel Label
-      MoveScaled(0,5,13,4)
-      Text = ("Some Integer:")
-      Alignment = Align.Right
-    }
-    { SomeIntegerValueBox ValueBox
-      MoveScaled(14,5,24,4)
-      Alignment = Align.Right
-    }
-    { SomeBooleanLabel Label
-      MoveScaled(0,10,13,4)
-      Text = ("Some Boolean:")
-      Alignment = Align.Right
-    }
-    { SomeBooleanCheckBox CheckBox
-      MoveScaled(14,10,4,4)
-    }
+  { PanelTest Panel
+    MoveScaled(1,21,61,46)
+    Border = Border.Plain
   }
-  { HBox1 HBox
-    MoveScaled(1,69,112,4)
-    Expand = True
-    AutoResize = True
-    { Spring1 Spring
-      MoveScaled(10,1,4,3)
-    }
-    { ButtonClose Button
-      MoveScaled(44,0,16,4)
-      Text = ("Close")
-    }
-  }
-
 }
 
 # Gambas Action File 3.0
@@ -351,6 +354,10 @@
     Text = "Print"
     Shortcut = "Ctrl+P"
     Picture = "icon:/22/print"
+  }
+  { Action FileSave
+    Text = "Save"
+    Picture = "icon:/22/save"
   }
   { Action FileSaveAs
     Text = "Save As"
