@@ -2,11 +2,11 @@ FMain
 Gambas Gui Gtk2
 0
 0
-0.0.2
+0.2.0
 
 gb.image
 gb.gtk
 gb.form
 gb.settings
-:stephensepan/DockAnchor:0.0
+:stephensepan/DockAnchor:0.2
 
