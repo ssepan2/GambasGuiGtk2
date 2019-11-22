@@ -1,12 +1,14 @@
-FMain
+Main
 Gambas Gui Gtk2
 0
 0
-0.5.1
+0.6.2
 
+gb.args
 gb.image
 gb.gtk
 gb.form
 gb.settings
-:stephensepan/DockAnchor:0.3
+:stephensepan/AppUtility:0.1
+:stephensepan/DockAnchor:0.4
 
