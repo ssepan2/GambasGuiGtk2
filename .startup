@@ -2,15 +2,15 @@ Main
 Gambas Gui Gtk2
 0
 0
-0.14.2
+0.15.0
 
 gb.args
 gb.image
-gb.gtk
+gb.gui
 gb.form
 gb.settings
-:stephensepan/GambasAppUtilityLib:0.3
 :stephensepan/GambasSomeModelLib:0.3
-:stephensepan/DockAnchor:0.6
-:stephensepan/GambasGuiAppUtilityLib:0.3
+:sjsepan/GambasAppUtilityLib:0.3
+:sjsepan/DockAnchor:0.6
+:sjsepan/GambasGuiAppUtilityLib:0.3
 
